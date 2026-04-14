@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sattva-cream: #F2EDE3;
+  --sattva-navy: #0D2240;
+  --sattva-navy-mid: #1B3A6B;
+  --sattva-navy-light: #4A7AB5;
+  --sattva-green: #2D7A4F;
+  --sattva-amber: #C8961A;
+  --sattva-grid: #C8BFB0;
+  --sattva-white: #FFFFFF;
+  --sattva-muted: #8A8070;
+}
+
+body {
+  background-color: var(--sattva-cream);
+  color: var(--sattva-navy);
+  font-family: 'Inter', sans-serif;
+  background-image:
+    linear-gradient(var(--sattva-grid) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, var(--sattva-grid) 0.5px, transparent 0.5px);
+  background-size: 40px 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mono-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.bracket-label::before {
+  content: "[ ";
+}
+
+.bracket-label::after {
+  content: " ]";
+}
+
+.panel-crosshair {
+  position: relative;
+}
+
+.panel-crosshair::before,
+.panel-crosshair::after,
+.panel-crosshair > .crosshair-bottom-left::before,
+.panel-crosshair > .crosshair-bottom-right::before {
+  content: "+";
+  position: absolute;
+  color: var(--sattva-navy-mid);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.panel-crosshair::before { top: -8px; left: -8px; }
+.panel-crosshair::after { top: -8px; right: -8px; }
+
+.crosshair-bottom-left::before { bottom: -8px; left: -8px; }
+.crosshair-bottom-right::before { bottom: -8px; right: -8px; }
