@@ -56,3 +56,14 @@ class PersonaUpdate(Base):
     trait_updates = Column(JSONB)
     triggered_by = Column(UUID(as_uuid=True), ForeignKey("outcomes.id"))
     applied_at = Column(DateTime(timezone=True), server_default=func.now())
+
+class PersonaVersion(Base):
+    __tablename__ = "persona_versions"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))
+    persona_id = Column(String(100), nullable=False)
+    version = Column(Integer, nullable=False)
+    traits = Column(JSONB, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    source = Column(String(50)) # 'seed' | 'feedback_loop' | 'manual'
+    validation_id = Column(UUID(as_uuid=True), ForeignKey("outcomes.id"))

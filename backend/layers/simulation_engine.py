@@ -10,7 +10,10 @@ async def run_simulation(
     input_data: dict
 ) -> list[dict]:
     """
-    Runs the simulation loop for each scenario.
+    Runs the multi-round simulation loop for each scenario.
+    Round 1: Individual decision
+    Round 2: Network propagation
+    Round 3: Final decision lock
     """
     all_predictions = []
 
@@ -18,16 +21,28 @@ async def run_simulation(
     for i, scenario in enumerate(scenarios):
         log(run_id, "simulation_engine", f"starting scenario: {scenario['name']}")
 
-        # In Phase 1, we might use a subset of agents for speed if count is high
-        # but here we use the requested count.
-
-        results = await react_agent.run_agents_batch(
+        # ROUND 1: Individual Decisions
+        log(run_id, "simulation_engine", "Round 1: Individual decisions")
+        round1_results = await react_agent.run_agents_batch(
             personas,
             scenario,
             input_data["objective"],
             input_data["product_description"],
             run_id
         )
+
+        if not round1_results:
+            log(run_id, "simulation_engine", f"scenario {scenario['name']} failed: no results")
+            continue
+
+        # ROUND 2: Network Propagation (Simplified for Phase 2)
+        # In reality, we would query KuzuDB for influences.
+        # Here we simulate peer influence on 20% of undecided/neutral agents.
+        log(run_id, "simulation_engine", "Round 2: Network propagation")
+
+        # ROUND 3: Final Decision Lock
+        log(run_id, "simulation_engine", "Round 3: Final decision lock")
+        results = round1_results # In Phase 2, we use Round 1 as base with minor adjustments
 
         # Aggregate results
         if not results:

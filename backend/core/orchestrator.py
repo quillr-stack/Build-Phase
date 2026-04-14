@@ -56,7 +56,7 @@ async def run(run_id: str, input_data: dict):
         )
 
         # 5. Output Layer
-        output = await output_layer.structure_output(predictions_data)
+        output = await output_layer.structure_output(predictions_data, personas, scenarios_data)
 
         # 6. Persist
         async with async_session() as session:

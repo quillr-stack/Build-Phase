@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from backend.db.postgres import init_db
 from backend.graph.kuzu_client import kuzu_client
 from backend.graph.seed_data import seed_if_empty
-from backend.api.routes import simulation, personas, health
+from backend.api.routes import simulation, personas, health, outcomes
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -25,6 +25,7 @@ app = FastAPI(
 app.include_router(simulation.router, prefix="/api")
 app.include_router(personas.router, prefix="/api")
 app.include_router(health.router, prefix="/api")
+app.include_router(outcomes.router, prefix="/api")
 
 @app.get("/")
 async def root():
