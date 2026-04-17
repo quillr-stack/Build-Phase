@@ -1,6 +1,5 @@
 import asyncio
 from backend.intelligence import llm_client
-from backend.core.logger import log
 
 async def run_agent_loop(
     persona: dict,

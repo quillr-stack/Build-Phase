@@ -5,7 +5,6 @@ from backend.db.models import Simulation, Scenario, Prediction
 from backend.db.redis_client import redis_client
 from backend.core import config
 from sqlalchemy import update
-import uuid
 from datetime import datetime
 
 async def run(run_id: str, input_data: dict):

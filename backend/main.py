@@ -17,7 +17,17 @@ async def lifespan(app: FastAPI):
     # Add any cleanup if needed
 
 app = FastAPI(
-    title="SATTVA API",
+    title="[ SATTVA ] Behavioral Intelligence Engine",
+    description="""
+SATTVA is India's Behavioral Intelligence Engine.
+A multi-agent simulation system that models how Indian citizens think, react, and behave.
+
+### [ CAPABILITIES ]
+- Multi-agent OASIS Simulation Engine
+- ReACT Agent Intelligence (Claude Sonnet 3.5)
+- KuzuDB Knowledge Graph (Indian Behavioral Ontologies)
+- Real-world Validation & Feedback Loop
+""",
     version="0.1.0",
     lifespan=lifespan
 )
