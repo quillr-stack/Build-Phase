@@ -1,6 +1,6 @@
 from fastapi import APIRouter, BackgroundTasks, HTTPException
-from pydantic import BaseModel
-from typing import Optional, Dict, Any
+from pydantic import BaseModel, Field
+from typing import Optional, Dict, Any, Literal
 import uuid
 from backend.core import orchestrator
 from backend.db.postgres import async_session
@@ -11,12 +11,32 @@ from sqlalchemy import select
 router = APIRouter()
 
 class SimulationRequest(BaseModel):
-    segment: str
-    industry: str
-    objective: str
-    product_description: str
-    agent_count: Optional[int] = 1000
-    variables: Optional[Dict[str, Any]] = {}
+    segment: Literal["tier1_metro", "tier2_urban", "tier3_rural", "mixed_india"] = Field(
+        ...,
+        description="The target Indian citizen segment for the simulation"
+    )
+    industry: Literal["fintech", "fmcg", "edtech", "healthtech", "ecommerce", "government"] = Field(
+        ...,
+        description="The industry vertical of the product or campaign"
+    )
+    objective: str = Field(
+        ...,
+        description="The primary goal (e.g., 'signup', 'brand_awareness', 'purchase')"
+    )
+    product_description: str = Field(
+        ...,
+        description="Detailed description of the product or campaign to be tested"
+    )
+    agent_count: Optional[int] = Field(
+        1000,
+        ge=1,
+        le=10000,
+        description="Number of autonomous agents to involve in the simulation"
+    )
+    variables: Optional[Dict[str, Any]] = Field(
+        default_factory=dict,
+        description="Custom scenario variables and execution parameters"
+    )
 
 @router.post("/simulate")
 async def simulate(request: SimulationRequest, background_tasks: BackgroundTasks):

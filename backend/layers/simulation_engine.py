@@ -1,4 +1,3 @@
-import asyncio
 from backend.intelligence import react_agent
 from backend.db.redis_client import redis_client
 from backend.core.logger import log
@@ -41,8 +40,10 @@ async def run_simulation(
         avg_sentiment_val = sum(sentiment_scores.get(r.get("sentiment", "neutral"), 0.5) for r in results) / len(results)
 
         sentiment = "neutral"
-        if avg_sentiment_val > 0.7: sentiment = "positive"
-        elif avg_sentiment_val < 0.3: sentiment = "skeptical"
+        if avg_sentiment_val > 0.7:
+            sentiment = "positive"
+        elif avg_sentiment_val < 0.3:
+            sentiment = "skeptical"
 
         barriers = {}
         for r in results:

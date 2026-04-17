@@ -1,5 +1,4 @@
 import random
-from backend.graph.kuzu_client import kuzu_client
 from backend.graph.seed_data import SEED_PERSONAS
 from backend.core.logger import log
 
